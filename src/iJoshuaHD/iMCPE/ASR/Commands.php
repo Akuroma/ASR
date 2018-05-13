@@ -18,19 +18,19 @@ class Commands implements CommandExecutor{
 		$this->plugin = $plugin;
 	}
 	
-	public function onCommand(CommandSender $sender, Command $command, string $label, array $args):bool {
+	public function onCommand(CommandSender $sender, Command $command, string $commandLabel, array $args): bool {
 		switch(strtolower($command->getName())){
 		
 			case "asr":
 				if(isset($args[0])){
 					if(!is_numeric($args[0])){
 						$sender->sendMessage("[ASR] Only Numbers is prohibited.");
-						return;
+						return true;
 					}
 					if($args[0] > 60){
 						$sender->sendMessage("[ASR] It's not advised the value would be more than 60. If you want to increase it, edit the config.yml instead as this plugin won't allow you to set the value more than the said value because it's not prescribed.");
 						$sender->sendMessage("[ASR] Only Numbers is prohibited.");
-						return;
+						return true;
 					}
 					$this->plugin->setValueTimer($args[0]);
 					$sender->sendMessage("[ASR] You have set the timer to " . $args[0] . " min/s. The changes will apply after the next server restart.");
@@ -45,7 +45,6 @@ class Commands implements CommandExecutor{
 			break;
 		
 		}
-		return true;
 	}
 
 }
